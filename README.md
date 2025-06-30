@@ -38,30 +38,6 @@ PocketMind is a web application that helps you save, organize, and manage your i
 - Zod for validation
 - bcrypt for password security
 
----
-
-PocketMind/
-├── backend/
-│ ├── src/
-│ │ ├── middlewares/
-│ │ ├── models/
-│ │ ├── routes/
-│ │ └── index.ts
-│ ├── package.json
-│ └── tsconfig.json
-│
-├── frontend/
-│ ├── src/
-│ │ ├── assets/
-│ │ ├── components/
-│ │ ├── pages/
-│ │ ├── App.tsx
-│ │ ├── main.tsx
-│ │ └── config.ts
-│ ├── package.json
-│
-└── README.md
-
 ## How to initialize
 
 after cloning to repo
@@ -105,8 +81,4 @@ npm run dev
 
 ### 🔹 Mobile View
 
-![SignUp Page Screenshot](./frontend/src/assets/mobile1.jpeg)
-![SignIn Page Screenshot](./frontend/src/assets/mobile2.jpeg)
-![Dashboard Screenshot](./frontend/src/assets/mobile3.jpeg)
-![Dashboard In Dark Screenshot](./frontend/src/assets/mobile4.jpeg)
-![Add Content Screenshot](./frontend/src/assets/mobile5.jpeg)
+![Mobile Screenshots](./frontend/src/assets/mobile.png)
