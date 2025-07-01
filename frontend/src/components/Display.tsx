@@ -144,39 +144,6 @@ const Display = () => {
             type={content.type}
           />
         ))}
-        {contents.map((content) => (
-          <Card
-            key={content._id}
-            title={content.title}
-            handleDeleteContent={() => handleDeleteContent(content._id)}
-            link={content.link}
-            hint={content.hint}
-            time={content.createdAt}
-            type={content.type}
-          />
-        ))}
-        {contents.map((content) => (
-          <Card
-            key={content._id}
-            title={content.title}
-            handleDeleteContent={() => handleDeleteContent(content._id)}
-            link={content.link}
-            hint={content.hint}
-            time={content.createdAt}
-            type={content.type}
-          />
-        ))}
-        {contents.map((content) => (
-          <Card
-            key={content._id}
-            title={content.title}
-            handleDeleteContent={() => handleDeleteContent(content._id)}
-            link={content.link}
-            hint={content.hint}
-            time={content.createdAt}
-            type={content.type}
-          />
-        ))}
       </div>
 
       <Form
