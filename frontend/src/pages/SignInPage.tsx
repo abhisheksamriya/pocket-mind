@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import DataInput from "../components/DataInput";
 import axios from "axios";
 import API_URL from "../config";
@@ -8,8 +8,10 @@ const SignInPage = () => {
   const emailRef = useRef<HTMLInputElement>(null);
   const passRef = useRef<HTMLInputElement>(null);
   const navigate = useNavigate();
+  const [error, setError] = useState("");
 
   const handleSignIn = async () => {
+    setError("");
     try {
       const response = await axios.post(`${API_URL}/api/v1/auth/signin`, {
         username: emailRef.current?.value,
@@ -18,22 +20,41 @@ const SignInPage = () => {
       const jwt = response.data.token;
       localStorage.setItem("token", jwt);
       navigate("/dashboard");
-    } catch (err) {
-      console.error("Sign In Failed", err);
-      alert("Invalid credentials or server error");
+    } catch (err: any) {
+      if (err.response && err.response.data && err.response.data.message) {
+        setError(err.response.data.message);
+      } else {
+        setError("Something went wrong. Please try again.");
+      }
     }
   };
 
+  useEffect(() => {
+    if (error) {
+      const timer = setTimeout(() => {
+        setError("");
+      }, 10000);
+      return () => clearTimeout(timer);
+    }
+  }, [error]);
+
   return (
     <div className="flex justify-center items-center w-screen h-screen bg-gradient-to-br from-brand via-teal-600 to-emerald-800">
-      <DataInput
-        buttonText="Sign In"
-        title="Welcome Back"
-        subtitle="Sign in to continue"
-        emailRef={emailRef}
-        passRef={passRef}
-        handleClick={handleSignIn}
-      />
+      <div className="relative">
+        {error && (
+          <p className="absolute top-[-80px] left-1/2 transform -translate-x-1/2 bg-red-500 text-white px-4 py-2 rounded text-lg w-95 text-center text-bold shadow-lg animate-bounce">
+            {error}
+          </p>
+        )}
+        <DataInput
+          buttonText="Sign In"
+          title="Welcome Back"
+          subtitle="Sign in to continue"
+          emailRef={emailRef}
+          passRef={passRef}
+          handleClick={handleSignIn}
+        />
+      </div>
     </div>
   );
 };
