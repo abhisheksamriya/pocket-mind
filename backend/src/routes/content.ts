@@ -1,5 +1,5 @@
 import express from "express";
-import { Content } from "../modules/db";
+import { Content } from "../models/db";
 import { protect } from "../middleware/protect";
 
 const router = express.Router();

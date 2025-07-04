@@ -1,6 +1,6 @@
 import express from "express";
 import { protect } from "../middleware/protect";
-import { Content, Link, User } from "../modules/db";
+import { Content, Link, User } from "../models/db";
 import crypto from "crypto";
 
 const router = express.Router();

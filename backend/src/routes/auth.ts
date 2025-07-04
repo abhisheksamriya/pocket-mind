@@ -1,5 +1,5 @@
 import express from "express";
-import { User } from "../modules/db";
+import { User } from "../models/db";
 import { userAuth } from "../middleware/userAuth";
 import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
@@ -11,9 +11,7 @@ router.post("/signup", userAuth, async (req, res) => {
     const { username, password } = req.body;
     const existingUser = await User.findOne({ username });
     if (existingUser) {
-      res
-        .status(403)
-        .json({ message: "user already exist with this username" });
+      res.status(403).json({ message: "Email already exists" });
       return;
     }
     const hashedPassword = await bcrypt.hash(password, 10);
