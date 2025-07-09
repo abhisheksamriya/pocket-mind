@@ -3,12 +3,13 @@ import { User } from "../models/db";
 import { userAuth } from "../middleware/userAuth";
 import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
+import { protect } from "../middleware/protect";
 
 const router = express.Router();
 
 router.post("/signup", userAuth, async (req, res) => {
   try {
-    const { username, password } = req.body;
+    const { username, email, password } = req.body;
     const existingUser = await User.findOne({ username });
     if (existingUser) {
       res.status(403).json({ message: "Email already exists" });
@@ -17,6 +18,7 @@ router.post("/signup", userAuth, async (req, res) => {
     const hashedPassword = await bcrypt.hash(password, 10);
     await User.create({
       username,
+      email,
       password: hashedPassword,
     });
     res.status(200).json({
@@ -29,10 +31,10 @@ router.post("/signup", userAuth, async (req, res) => {
 
 router.post("/signin", userAuth, async (req, res) => {
   try {
-    const { username, password } = req.body;
-    const findUser = await User.findOne({ username });
+    const { email, password } = req.body;
+    const findUser = await User.findOne({ email });
     if (!findUser) {
-      res.status(403).json({ message: "username not exist" });
+      res.status(403).json({ message: "user not exist" });
       return;
     }
     const verifyPassword = await bcrypt.compare(password, findUser?.password);
@@ -58,10 +60,22 @@ router.post("/signin", userAuth, async (req, res) => {
   }
 });
 
+router.get("/user", protect, async (req, res) => {
+  const userId = (req as any).userId;
+  try {
+    const user = await User.findOne({ _id: userId });
+    res.status(200).json({ id: user?._id, username: user?.username });
+  } catch (error) {
+    res.status(500).json({
+      message: "server error",
+    });
+  }
+});
+
 router.delete("/signout/:id", async (req, res) => {
   try {
     const id = req.params.id;
-    await User.findByIdAndUpdate(id);
+    await User.findByIdAndDelete(id);
     res.status(200).json({
       message: "user deleted",
     });

@@ -1,10 +1,24 @@
 import { FaInstagram, FaLinkedin, FaTwitter, FaYoutube } from "react-icons/fa";
 import logo from "../assets/logo.png";
-import type { ReactElement } from "react";
+import { type ReactElement } from "react";
 import { BsFillCollectionFill } from "react-icons/bs";
 import { FiLogOut } from "react-icons/fi";
+import axios from "axios";
+import API_URL from "../config";
+import { useNavigate } from "react-router-dom";
 
-const NavBar = () => {
+const NavBar = ({ id }: { id: string }) => {
+  const navigate = useNavigate();
+  const handleLogOut = async () => {
+    try {
+      await axios.delete(`${API_URL}/api/v1/auth/signout/${id}`);
+      navigate("/");
+      alert("your account is deleted");
+    } catch (error) {
+      console.log("/");
+    }
+  };
+
   return (
     <nav className="bg-screen fixed w-72 h-[95vh] mt-5 ml-5 rounded-2xl hidden md:block">
       <div className="pl-5 pt-7 font-mono relative h-full w-full">
@@ -19,7 +33,10 @@ const NavBar = () => {
           <Link task="Instagram" startIcon={<FaInstagram />} />
         </div>
         <div className="absolute bottom-10 pl-5">
-          <button className="cursor-pointer bg-brand py-3 px-6 rounded-3xl text-white flex justify-center items-center gap-2 ">
+          <button
+            onClick={handleLogOut}
+            className="cursor-pointer bg-brand py-3 px-6 rounded-3xl text-white flex justify-center items-center gap-2 "
+          >
             Log Out
             <FiLogOut />
           </button>

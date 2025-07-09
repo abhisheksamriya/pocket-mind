@@ -16,7 +16,7 @@ const SignInPage = () => {
     try {
       setLoading(true);
       const response = await axios.post(`${API_URL}/api/v1/auth/signin`, {
-        username: emailRef.current?.value,
+        email: emailRef.current?.value,
         password: passRef.current?.value,
       });
       const jwt = response.data.token;

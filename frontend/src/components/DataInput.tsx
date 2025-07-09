@@ -1,11 +1,13 @@
 // DataInput.tsx
 import type { RefObject } from "react";
+import { useLocation } from "react-router-dom";
 
 type Props = {
   title: string;
   subtitle?: string;
   buttonText: string;
   emailRef: RefObject<HTMLInputElement | null>;
+  nameRef?: RefObject<HTMLInputElement | null>;
   passRef: RefObject<HTMLInputElement | null>;
   handleClick: () => void;
   loading: boolean;
@@ -19,12 +21,25 @@ const DataInput = ({
   passRef,
   handleClick,
   loading,
+  nameRef,
 }: Props) => {
+  const location = useLocation();
   return (
     <div className="bg-white p-8 md:w-[25vw] w-[90vw] rounded-2xl shadow-2xl text-black flex flex-col gap-6">
       <h1 className="text-3xl font-bold text-center">{title}</h1>
       {subtitle && (
         <p className="text-sm text-gray-600 text-center">{subtitle}</p>
+      )}
+      {location.pathname == "/" && (
+        <div className="flex flex-col gap-3">
+          <label className="text-sm font-medium">Username</label>
+          <input
+            type="email"
+            ref={nameRef}
+            placeholder="Enter your username"
+            className="border border-gray-300 py-3 px-4 rounded-xl focus:outline-none focus:ring-2 focus:ring-brand transition-all"
+          />
+        </div>
       )}
 
       <div className="flex flex-col gap-3">

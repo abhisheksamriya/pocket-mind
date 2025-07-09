@@ -3,9 +3,11 @@ import { MdDarkMode, MdLightMode } from "react-icons/md";
 import icon from "../assets/icon.png";
 
 const Profile = ({
+  username,
   dark,
   handleToggle,
 }: {
+  username: string;
   dark: boolean;
   handleToggle: () => void;
 }) => {
@@ -23,7 +25,7 @@ const Profile = ({
             {dark ? <MdLightMode /> : <MdDarkMode />}
           </button>
           <CgProfile className=" text-4xl md:text-5xl text-brand" />
-          <span className="hidden md:block">Abhishek Samriya</span>
+          <span className="hidden md:block">{username}</span>
         </div>
       </div>
     </div>
