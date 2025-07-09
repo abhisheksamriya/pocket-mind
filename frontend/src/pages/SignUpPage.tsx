@@ -4,13 +4,8 @@ import axios from "axios";
 import API_URL from "../config";
 import { useNavigate } from "react-router-dom";
 
-const SignUpPage = ({
-  loading,
-  setLoading,
-}: {
-  loading: boolean;
-  setLoading: () => void;
-}) => {
+const SignUpPage = () => {
+  const [loading, setLoading] = useState(false);
   const emailRef = useRef<HTMLInputElement>(null);
   const passRef = useRef<HTMLInputElement>(null);
   const navigate = useNavigate();
@@ -19,8 +14,8 @@ const SignUpPage = ({
 
   const handleSignUp = async () => {
     setError("");
-
     try {
+      setLoading(true);
       await axios.post(`${API_URL}/api/v1/auth/signup`, {
         username: emailRef.current?.value,
         password: passRef.current?.value,
@@ -28,9 +23,10 @@ const SignUpPage = ({
 
       if (emailRef.current) emailRef.current.value = "";
       if (passRef.current) passRef.current.value = "";
-
+      setLoading(false);
       navigate("/signin");
     } catch (err: any) {
+      setLoading(false);
       if (err.response && err.response.data && err.response.data.message) {
         setError(err.response.data.message);
       } else {
@@ -57,6 +53,7 @@ const SignUpPage = ({
           </p>
         )}
         <DataInput
+          loading={loading}
           buttonText="Create Account"
           title="Welcome to PocketMind"
           subtitle="Create your account to get started"

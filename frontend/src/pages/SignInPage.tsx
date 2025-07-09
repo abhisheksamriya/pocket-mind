@@ -5,6 +5,7 @@ import API_URL from "../config";
 import { useNavigate } from "react-router-dom";
 
 const SignInPage = () => {
+  const [loading, setLoading] = useState(false);
   const emailRef = useRef<HTMLInputElement>(null);
   const passRef = useRef<HTMLInputElement>(null);
   const navigate = useNavigate();
@@ -13,14 +14,17 @@ const SignInPage = () => {
   const handleSignIn = async () => {
     setError("");
     try {
+      setLoading(true);
       const response = await axios.post(`${API_URL}/api/v1/auth/signin`, {
         username: emailRef.current?.value,
         password: passRef.current?.value,
       });
       const jwt = response.data.token;
       localStorage.setItem("token", jwt);
+      setLoading(false);
       navigate("/dashboard");
     } catch (err: any) {
+      setLoading(false);
       if (err.response && err.response.data && err.response.data.message) {
         setError(err.response.data.message);
       } else {
@@ -47,6 +51,7 @@ const SignInPage = () => {
           </p>
         )}
         <DataInput
+          loading={loading}
           buttonText="Sign In"
           title="Welcome Back"
           subtitle="Sign in to continue"

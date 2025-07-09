@@ -1,6 +1,16 @@
 // DataInput.tsx
 import type { RefObject } from "react";
 
+type Props = {
+  title: string;
+  subtitle?: string;
+  buttonText: string;
+  emailRef: RefObject<HTMLInputElement | null>;
+  passRef: RefObject<HTMLInputElement | null>;
+  handleClick: () => void;
+  loading: boolean;
+};
+
 const DataInput = ({
   title,
   subtitle,
@@ -8,14 +18,8 @@ const DataInput = ({
   emailRef,
   passRef,
   handleClick,
-}: {
-  title: string;
-  subtitle?: string;
-  buttonText: string;
-  emailRef: RefObject<HTMLInputElement | null>;
-  passRef: RefObject<HTMLInputElement | null>;
-  handleClick: () => void;
-}) => {
+  loading,
+}: Props) => {
   return (
     <div className="bg-white p-8 md:w-[25vw] w-[90vw] rounded-2xl shadow-2xl text-black flex flex-col gap-6">
       <h1 className="text-3xl font-bold text-center">{title}</h1>
@@ -44,10 +48,11 @@ const DataInput = ({
       </div>
 
       <button
-        className="bg-brand py-3 px-4 rounded-xl text-white font-semibold hover:bg-brand-dark transition-all"
+        className="bg-brand py-3 px-4 rounded-xl text-white font-semibold hover:bg-brand-dark transition-all disabled:cursor-not-allowed"
         onClick={handleClick}
+        disabled={loading}
       >
-        {buttonText}
+        {loading ? "loading" : buttonText}
       </button>
     </div>
   );
