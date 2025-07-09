@@ -33,7 +33,7 @@ const Form = ({
       <div className="flex flex-col gap-3 mb-4">
         <Input label="Title" placeholder="Enter title" inputRef={titleRef} />
         <Input label="Link" placeholder="Enter url" inputRef={linkRef} />
-        <Input label="Type" placeholder="Enter type" inputRef={typeRef} />
+        <SelectInput label="Type" typeRef={typeRef} />
         <Input
           label="Hint"
           placeholder="Enter hint for you"
@@ -70,6 +70,29 @@ export const Input = ({
         type="text"
         placeholder={placeholder}
       />
+    </>
+  );
+};
+const SelectInput = ({
+  label,
+  typeRef,
+}: {
+  label: string;
+  typeRef: React.RefObject<HTMLInputElement | HTMLSelectElement | null>;
+}) => {
+  return (
+    <>
+      <label>{label}</label>
+      <select
+        ref={typeRef as React.RefObject<HTMLSelectElement>}
+        className=" border text-sm rounded-lg block w-full p-3 bg-brand border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500"
+      >
+        <option value="instagram">Instagram</option>
+        <option value="twitter">Twitter</option>
+        <option value="youtube">YouTube</option>
+        <option value="linkedin">LinkedIn</option>
+        <option value="other">Other</option>
+      </select>
     </>
   );
 };
