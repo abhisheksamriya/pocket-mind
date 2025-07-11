@@ -1,13 +1,14 @@
 import express from "express";
 import { User } from "../models/db";
-import { userAuth } from "../middleware/userAuth";
+import { signupValidator } from "../middleware/signupValidator";
 import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
 import { protect } from "../middleware/protect";
+import { signinValidator } from "../middleware/signinValidator";
 
 const router = express.Router();
 
-router.post("/signup", userAuth, async (req, res) => {
+router.post("/signup", signupValidator, async (req, res) => {
   try {
     const { username, email, password } = req.body;
     const existingUser = await User.findOne({ username });
@@ -29,7 +30,7 @@ router.post("/signup", userAuth, async (req, res) => {
   }
 });
 
-router.post("/signin", userAuth, async (req, res) => {
+router.post("/signin", signinValidator, async (req, res) => {
   try {
     const { email, password } = req.body;
     const findUser = await User.findOne({ email });

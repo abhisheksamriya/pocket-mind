@@ -1,12 +1,11 @@
 import { Request, Response, NextFunction } from "express";
 import z from "zod";
 
-const UserSchema = z.object({
+const SignupSchema = z.object({
   username: z
     .string()
     .min(3, "Username must be at least 3 characters")
-    .max(15, "Username can't exceed 15 characters")
-    .optional(),
+    .max(15, "Username can't exceed 15 characters"),
   email: z
     .string()
     .email("Enter a valid email")
@@ -18,8 +17,12 @@ const UserSchema = z.object({
     .max(20, "Password can't exceed 20 characters"),
 });
 
-export const userAuth = (req: Request, res: Response, next: NextFunction) => {
-  const result = UserSchema.safeParse(req.body);
+export const signupValidator = (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  const result = SignupSchema.safeParse(req.body);
 
   if (!result.success) {
     const error = result.error.flatten();
