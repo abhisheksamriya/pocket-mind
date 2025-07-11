@@ -29,7 +29,18 @@ const Display = () => {
     setOpen(true);
   };
 
-  const handleShare = () => {
+  const handleShare = async () => {
+    const token = localStorage.getItem("token");
+    try {
+      const response = await axios.post(
+        `${API_URL}/brain/share`,
+        { share: true },
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      );
+      console.log(response);
+    } catch (error) {}
     alert("Share functionality coming soon!");
   };
 

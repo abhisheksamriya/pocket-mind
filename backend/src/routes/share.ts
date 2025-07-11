@@ -7,7 +7,7 @@ const router = express.Router();
 
 router.post("/share", protect, async (req, res) => {
   const { share } = req.body;
-  const userId = req.body.userId; // Ideally, protect middleware se set hona chahiye
+  const userId = (req as any).userId;
 
   try {
     const existingLink = await Link.findOne({ userId });
