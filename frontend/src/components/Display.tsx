@@ -18,10 +18,9 @@ interface Content {
 }
 type Props = {
   activeType: string;
-  setActiveType: (type: string) => void;
 };
 
-const Display = ({ activeType, setActiveType }: Props) => {
+const Display = ({ activeType }: Props) => {
   const [open, setOpen] = useState(false);
   const navigate = useNavigate();
   const [contents, setContents] = useState<Content[]>([]);
