@@ -8,7 +8,6 @@ const router = express.Router();
 router.post("/share", protect, async (req, res) => {
   const { share } = req.body;
   const userId = (req as any).userId;
-
   try {
     const existingLink = await Link.findOne({ userId });
 

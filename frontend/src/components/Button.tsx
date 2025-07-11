@@ -5,14 +5,17 @@ const Button = ({
   text,
   startIcon,
   handleClick,
+  disabled,
 }: {
   type: "primary" | "secondary";
   text: string;
   startIcon: ReactElement;
   handleClick: () => void;
+  disabled?: boolean;
 }) => {
   return (
     <button
+      disabled={disabled}
       onClick={handleClick}
       className={`border-1 py-3 px-3 hover:scale-105 duration-100 transition-all rounded-3xl flex gap-3 justify-center items-center cursor-pointer ${
         type === "primary"

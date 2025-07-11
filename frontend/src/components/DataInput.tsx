@@ -30,7 +30,7 @@ const DataInput = ({
       {subtitle && (
         <p className="text-sm text-gray-600 text-center">{subtitle}</p>
       )}
-      {location.pathname == "/" && (
+      {location.pathname == "/signup" && (
         <div className="flex flex-col gap-3">
           <label className="text-sm font-medium">Username</label>
           <input
@@ -69,6 +69,21 @@ const DataInput = ({
       >
         {loading ? "loading" : buttonText}
       </button>
+      {location.pathname == "/signup" ? (
+        <div className="text-center text-lg">
+          Already a member?{" "}
+          <a className="underline text-brand" href="/signin">
+            Login here
+          </a>
+        </div>
+      ) : (
+        <div className="text-center text-lg">
+          Don't have account?{" "}
+          <a className="underline text-brand" href="signup">
+            Register
+          </a>
+        </div>
+      )}
     </div>
   );
 };

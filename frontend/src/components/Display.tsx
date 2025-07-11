@@ -6,6 +6,7 @@ import Form from "./Form";
 import API_URL from "../config";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import toast from "react-hot-toast";
 
 interface Content {
   _id: string;
@@ -15,8 +16,12 @@ interface Content {
   hint: string;
   createdAt: string;
 }
+type Props = {
+  activeType: string;
+  setActiveType: (type: string) => void;
+};
 
-const Display = () => {
+const Display = ({ activeType, setActiveType }: Props) => {
   const [open, setOpen] = useState(false);
   const navigate = useNavigate();
   const [contents, setContents] = useState<Content[]>([]);
@@ -24,6 +29,13 @@ const Display = () => {
   const linkRef = useRef<HTMLInputElement>(null);
   const typeRef = useRef<HTMLInputElement>(null);
   const hintRef = useRef<HTMLInputElement>(null);
+  const [loading, setLoading] = useState(false);
+
+  const filteredContents = contents.filter((item) =>
+    activeType === "All"
+      ? true
+      : item.type.toLowerCase() === activeType.toLowerCase()
+  );
 
   const handleAdd = () => {
     setOpen(true);
@@ -31,17 +43,39 @@ const Display = () => {
 
   const handleShare = async () => {
     const token = localStorage.getItem("token");
+    if (!token) {
+      toast.error("You must be logged in to share.");
+      return;
+    }
+
     try {
-      const response = await axios.post(
-        `${API_URL}/brain/share`,
+      setLoading(true);
+      const { data } = await axios.post(
+        `${API_URL}/api/v1/brain/share`,
         { share: true },
         {
           headers: { Authorization: `Bearer ${token}` },
         }
       );
-      console.log(response);
-    } catch (error) {}
-    alert("Share functionality coming soon!");
+
+      if (!data?.hash) {
+        toast.error("Something went wrong, no hash received.");
+        return;
+      }
+
+      const fullLink = `${window.location.origin}/${data.hash}`;
+      if (!navigator.clipboard) {
+        toast.error("Clipboard not supported in this browser.");
+        return;
+      }
+      await navigator.clipboard.writeText(fullLink);
+      toast.success("Link copied to clipboard!");
+    } catch (error: any) {
+      console.error("Share error:", error?.response?.data || error.message);
+      toast.error("Failed to generate share link.");
+    } finally {
+      setLoading(false);
+    }
   };
 
   const handleSubmit = async () => {
@@ -53,7 +87,7 @@ const Display = () => {
       !typeRef.current?.value ||
       !hintRef.current?.value
     ) {
-      alert("Please fill all fields");
+      toast.error("Please fill all fields");
       return;
     }
 
@@ -80,7 +114,7 @@ const Display = () => {
       setOpen(false);
     } catch (error) {
       console.error(error);
-      alert("Failed to add content");
+      toast.error("Failed to add content");
     }
   };
 
@@ -93,7 +127,7 @@ const Display = () => {
       setContents(response.data);
     } catch (error) {
       console.error(error);
-      alert("Failed to fetch data");
+      toast.error("Failed to fetch data");
     }
   };
 
@@ -108,7 +142,7 @@ const Display = () => {
       fetchData();
     } catch (error) {
       console.error(error);
-      alert("Failed to delete content");
+      toast.error("Failed to delete content");
     }
   };
 
@@ -134,8 +168,9 @@ const Display = () => {
             handleClick={handleAdd}
           />
           <Button
+            disabled={loading}
             startIcon={<IoMdShare />}
-            text="Share Data"
+            text={loading ? "Sharing..." : "Share Data"}
             type="secondary"
             handleClick={handleShare}
           />
@@ -144,7 +179,7 @@ const Display = () => {
       <p className="text-slate-400">Store What Matters</p>
 
       <div className="mt-5 flex flex-wrap gap-3 justify-center md:justify-start">
-        {contents.map((content) => (
+        {filteredContents.map((content) => (
           <Card
             key={content._id}
             title={content.title}

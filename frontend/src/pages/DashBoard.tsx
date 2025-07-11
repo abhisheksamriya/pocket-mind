@@ -7,6 +7,7 @@ import axios from "axios";
 import API_URL from "../config";
 
 const DashBoard = () => {
+  const [activeType, setActiveType] = useState("All");
   const [dark, setDark] = useState(false);
   const [user, setUser] = useState({
     id: "",
@@ -39,7 +40,11 @@ const DashBoard = () => {
       }`}
     >
       <div>
-        <NavBar id={user.id} />
+        <NavBar
+          id={user.id}
+          activeType={activeType}
+          setActiveType={setActiveType}
+        />
       </div>
       <div className="md:ml-75  ">
         <Profile
@@ -48,7 +53,7 @@ const DashBoard = () => {
           handleToggle={handleToggle}
         />
         <div className="bg-screen min-h-[84vh] md:w-[82vw] ml-5 mr-5 mb-5 rounded-2xl">
-          <Display />
+          <Display activeType={activeType} setActiveType={setActiveType} />
         </div>
         <div className="mb-5">
           <Footer />
