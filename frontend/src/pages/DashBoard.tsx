@@ -53,7 +53,7 @@ const DashBoard = () => {
           handleToggle={handleToggle}
         />
         <div className="bg-screen min-h-[84vh] md:w-[82vw] ml-5 mr-5 mb-5 rounded-2xl">
-          <Display activeType={activeType} setActiveType={setActiveType} />
+          <Display activeType={activeType} />
         </div>
         <div className="mb-5">
           <Footer />
