@@ -26,12 +26,14 @@ const DataInput = ({
   const location = useLocation();
   return (
     <div className="bg-white p-8 md:w-[25vw] w-[90vw] rounded-2xl shadow-2xl text-black flex flex-col gap-6">
-      <h1 className="text-3xl font-bold text-center">{title}</h1>
+      <h1 className="text-xl md:text-3xl font-bold text-center">{title}</h1>
       {subtitle && (
-        <p className="text-sm text-gray-600 text-center">{subtitle}</p>
+        <p className="text-xs sm:text-sm text-gray-600 text-center">
+          {subtitle}
+        </p>
       )}
       {location.pathname == "/signup" && (
-        <div className="flex flex-col gap-3">
+        <div className="flex flex-col gap-2 sm:gap-3">
           <label className="text-sm font-medium">Username</label>
           <input
             type="email"
@@ -42,7 +44,7 @@ const DataInput = ({
         </div>
       )}
 
-      <div className="flex flex-col gap-3">
+      <div className="flex flex-col gap-2 sm:gap-3">
         <label className="text-sm font-medium">Email</label>
         <input
           type="email"
@@ -52,7 +54,7 @@ const DataInput = ({
         />
       </div>
 
-      <div className="flex flex-col gap-3">
+      <div className="flex flex-col gap-2 sm:gap-3">
         <label className="text-sm font-medium">Password</label>
         <input
           ref={passRef}
@@ -70,14 +72,14 @@ const DataInput = ({
         {loading ? "loading" : buttonText}
       </button>
       {location.pathname == "/signup" ? (
-        <div className="text-center text-lg">
+        <div className="text-center text-sm sm:text-lg">
           Already a member?{" "}
           <a className="underline text-brand" href="/signin">
             Login here
           </a>
         </div>
       ) : (
-        <div className="text-center text-lg">
+        <div className="text-center text-sm sm:text-lg">
           Don't have account?{" "}
           <a className="underline text-brand" href="signup">
             Register
