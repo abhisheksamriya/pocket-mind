@@ -52,7 +52,7 @@ const DashBoard = () => {
           dark={dark}
           handleToggle={handleToggle}
         />
-        <div className="bg-screen min-h-[84vh] md:w-[82vw] ml-5 mr-5 mb-5 rounded-2xl">
+        <div className="bg-screen min-h-[84vh] md:max-w-[82vw] ml-5 mr-5 mb-5 rounded-2xl">
           <Display activeType={activeType} />
         </div>
         <div className="mb-5">
