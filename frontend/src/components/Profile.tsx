@@ -12,7 +12,7 @@ const Profile = ({
   handleToggle: () => void;
 }) => {
   return (
-    <div className="ml-5 mt-5 md:w-[82vw] mr-5 mb-2 bg-screen p-3 md:p-6 rounded-2xl flex justify-between items-center">
+    <div className="ml-5 mt-5 md:max-w-[82vw] mr-5 mb-2 bg-screen p-3 md:p-6 rounded-2xl flex justify-between items-center">
       <a href="/dashboard">
         <img src={icon} alt="icon" className="w-[60px]" />
       </a>
