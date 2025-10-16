@@ -21,8 +21,14 @@ app.use("/api/v1/auth", authRoutes);
 app.use("/api/v1/content", contentRoutes);
 app.use("/api/v1/brain", shareRoutes);
 
-mongoose.connect(databaseUrl).then(() => {
-  app.listen(port, "0.0.0.0", () =>
-    console.log(`Server running on port ${port}`)
-  );
-});
+mongoose
+  .connect(databaseUrl, {
+    ssl: true,
+    tlsAllowInvalidCertificates: true,
+    serverSelectionTimeoutMS: 10000,
+  })
+  .then(() => {
+    app.listen(port, "0.0.0.0", () =>
+      console.log(`Server running on port ${port}`)
+    );
+  });
