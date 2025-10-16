@@ -69,7 +69,7 @@ const DataInput = ({
         onClick={handleClick}
         disabled={loading}
       >
-        {loading ? "loading" : buttonText}
+        {loading ? "loading..." : buttonText}
       </button>
       {location.pathname == "/signup" ? (
         <div className="text-center text-sm sm:text-lg">
