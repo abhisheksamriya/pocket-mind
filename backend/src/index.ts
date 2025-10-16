@@ -10,7 +10,7 @@ import shareRoutes from "./routes/share.js";
 dotenv.config();
 
 const app = express();
-const port = process.env.PORT || 3000;
+const port = Number(process.env.PORT) || 3000;
 const databaseUrl = process.env.DATABASE_URL;
 
 if (!databaseUrl) {
