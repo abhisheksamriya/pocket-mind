@@ -3,9 +3,9 @@ import dotenv from "dotenv";
 import mongoose from "mongoose";
 import cookieParser from "cookie-parser";
 import cors from "cors";
-import authRoutes from "./routes/auth.js";
-import contentRoutes from "./routes/content.js";
-import shareRoutes from "./routes/share.js";
+import authRoutes from "./routes/auth";
+import contentRoutes from "./routes/content";
+import shareRoutes from "./routes/share";
 
 dotenv.config();
 
