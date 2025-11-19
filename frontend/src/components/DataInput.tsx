@@ -32,7 +32,7 @@ const DataInput = ({
           {subtitle}
         </p>
       )}
-      {location.pathname == "/signup" && (
+      {location.pathname == "/register" && (
         <div className="flex flex-col gap-2 sm:gap-3">
           <label className="text-sm font-medium">Username</label>
           <input
