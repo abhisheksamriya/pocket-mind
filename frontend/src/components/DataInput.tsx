@@ -74,14 +74,14 @@ const DataInput = ({
       {location.pathname == "/register" ? (
         <div className="text-center text-sm sm:text-lg">
           Already a member?{" "}
-          <a className="underline text-brand" href="/signin">
+          <a className="underline text-brand" href="/login">
             Login here
           </a>
         </div>
       ) : (
         <div className="text-center text-sm sm:text-lg">
           Don't have account?{" "}
-          <a className="underline text-brand" href="signup">
+          <a className="underline text-brand" href="/register">
             Register
           </a>
         </div>
