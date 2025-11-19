@@ -1,15 +1,12 @@
 import { Link } from "react-router-dom";
+import icon from "../assets/icon.png";
 
 export default function LandingPage() {
   return (
     <div className="w-full h-screen bg-gradient-to-br from-emerald-600 to-emerald-800 flex items-center justify-center px-4">
       <div className="text-center text-white space-y-6">
         <div className="flex flex-col items-center space-y-2">
-          <img
-            src="src/assets/icon.png"
-            alt="PocketMind Logo"
-            className="w-16 h-16"
-          />
+          <img src={icon} alt="PocketMind Logo" className="w-16 h-16" />
           <h1 className="text-4xl font-bold tracking-wide mt-2">PocketMind</h1>
         </div>
 
