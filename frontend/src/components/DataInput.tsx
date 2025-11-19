@@ -71,7 +71,7 @@ const DataInput = ({
       >
         {loading ? "loading..." : buttonText}
       </button>
-      {location.pathname == "/signup" ? (
+      {location.pathname == "/register" ? (
         <div className="text-center text-sm sm:text-lg">
           Already a member?{" "}
           <a className="underline text-brand" href="/signin">

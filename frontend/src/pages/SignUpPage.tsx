@@ -26,7 +26,7 @@ const SignUpPage = () => {
       if (emailRef.current) emailRef.current.value = "";
       if (passRef.current) passRef.current.value = "";
       setLoading(false);
-      navigate("/signin");
+      navigate("/login");
     } catch (err: any) {
       setLoading(false);
       if (err.response && err.response.data && err.response.data.message) {
